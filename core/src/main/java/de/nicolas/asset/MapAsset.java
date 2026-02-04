@@ -7,7 +7,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
 public enum MapAsset implements Asset<TiledMap> {
 
-    Main("mainnmap.tmx");
+    Main("mainmap.tmx");
 
     private final AssetDescriptor<TiledMap> descriptor;
 
