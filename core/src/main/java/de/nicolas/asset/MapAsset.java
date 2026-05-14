@@ -5,6 +5,7 @@ import com.badlogic.gdx.maps.tiled.BaseTiledMapLoader;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
+/** enum für die im Spiel existierenden TiledMaps */
 public enum MapAsset implements Asset<TiledMap> {
 
     Main("mainmap.tmx");

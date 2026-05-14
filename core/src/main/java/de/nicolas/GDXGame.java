@@ -18,20 +18,26 @@ import java.util.Map;
 
 public class GDXGame extends Game {
 
+    /** Spielewelt größe und die größe einer Einheit*/
     public static final float WORLD_WIDTH = 16f;
     public static final float WORLD_HEIGHT = 9f;
     public static final float UNIT_SCALE = 1f / 16f;
 
+    /** unser Pinsel */
     private Batch batch;
 
+    /** Kameravariablen */
     private OrthographicCamera camera;
     private Viewport viewport;
 
+    /** Asset Management */
     private AssetService assetService;
 
+    /** Überwachung für unser Program */
     private GLProfiler glProfiler;
     private FPSLogger fpsLogger;
 
+    /** Liste, die die im Spiel existierenden Screen beinhaltet */
     private final Map<Class<? extends Screen>, Screen> screenCache = new HashMap<>();
 
     @Override
@@ -59,6 +65,7 @@ public class GDXGame extends Game {
         super.resize(width, height);
     }
 
+    /** Methode, mit der man Screens zur Map hinzufügen kann */
     public void addScreen(Screen screen){
         if (screenCache.containsValue(screen)){
             return;
@@ -66,6 +73,7 @@ public class GDXGame extends Game {
         screenCache.put(screen.getClass(), screen);
     }
 
+    /** abgewandelte setScreen-Methode die sich den entsprechenden Screen aus der Map holt */
     public void setScreen(Class<? extends Screen> screenClass){
         Screen screen = screenCache.get(screenClass);
         if (screen == null){
@@ -97,6 +105,7 @@ public class GDXGame extends Game {
         assetService.dispose();
     }
 
+    /** Getter und Setter */
     public Batch getBatch() {
         return batch;
     }
