@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import de.nicolas.asset.AssetService;
 import de.nicolas.asset.MapAsset;
+import de.nicolas.system.RenderSystem;
 
 public class GameScreen extends ScreenAdapter {
 

@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.Disposable;
 
 public class RenderSystem extends SortedIteratingSystem implements Disposable {
 
+
     @Override
     protected void processEntity(Entity entity, float v) {
 
