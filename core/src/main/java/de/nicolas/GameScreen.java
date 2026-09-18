@@ -23,8 +23,6 @@ public class GameScreen extends ScreenAdapter {
     private final OrthographicCamera camera;
     private final Engine engine;
 
-    private final OrthogonalTiledMapRenderer mapRenderer;
-
     public GameScreen(GDXGame game){
         this.game = game;
         batch = game.getBatch();
@@ -33,15 +31,13 @@ public class GameScreen extends ScreenAdapter {
         camera = game.getCamera();
         engine = new Engine();
 
-        engine.addSystem(new RenderSystem(batch, viewport, assetService));
-
-        mapRenderer = new OrthogonalTiledMapRenderer(null, GDXGame.UNIT_SCALE, batch);
+        engine.addSystem(new RenderSystem(batch, viewport));
     }
 
     @Override
     public void show() {
         assetService.load(MapAsset.Main);
-        mapRenderer.setMap(assetService.get(MapAsset.Main));
+        engine.getSystem(RenderSystem.class).setMap(assetService.get(MapAsset.Main));
     }
 
     @Override
@@ -54,10 +50,7 @@ public class GameScreen extends ScreenAdapter {
         delta = Math.min(delta, 1 / 30f);
         engine.update(delta);
 
-        viewport.apply();
-        batch.setColor(Color.WHITE);
-        mapRenderer.setView(camera);
-        mapRenderer.render();
+
     }
 
     @Override
@@ -65,9 +58,8 @@ public class GameScreen extends ScreenAdapter {
         for (EntitySystem system : engine.getSystems()){
             if (system instanceof Disposable disposableSystem){
                 disposableSystem.dispose();
+                //((Disposable) system).dispose();
             }
         }
-
-        mapRenderer.dispose();
     }
 }

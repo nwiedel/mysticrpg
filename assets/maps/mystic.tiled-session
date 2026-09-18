@@ -7,10 +7,10 @@
     "fileStates": {
         "mainmap.tmx": {
             "scale": 3,
-            "selectedLayer": 2,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 141.33333333333334,
-                "y": 143.66666666666669
+                "x": 148.33333333333334,
+                "y": 97.66666666666669
             }
         },
         "objects.tsx": {
