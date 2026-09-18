@@ -58,7 +58,6 @@ public class GameScreen extends ScreenAdapter {
         for (EntitySystem system : engine.getSystems()){
             if (system instanceof Disposable disposableSystem){
                 disposableSystem.dispose();
-                //((Disposable) system).dispose();
             }
         }
     }
