@@ -6,12 +6,16 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import de.nicolas.asset.AssetService;
 import de.nicolas.asset.MapAsset;
 import de.nicolas.system.RenderSystem;
+import de.nicolas.tiled.TiledService;
+
+import java.util.function.Consumer;
 
 public class GameScreen extends ScreenAdapter {
 
@@ -22,6 +26,7 @@ public class GameScreen extends ScreenAdapter {
     private final Viewport viewport;
     private final OrthographicCamera camera;
     private final Engine engine;
+    private final TiledService tiledService;
 
     public GameScreen(GDXGame game){
         this.game = game;
@@ -29,15 +34,19 @@ public class GameScreen extends ScreenAdapter {
         assetService = game.getAssetService();
         viewport = game.getViewport();
         camera = game.getCamera();
+        tiledService = new TiledService(assetService);
         engine = new Engine();
 
-        engine.addSystem(new RenderSystem(batch, viewport));
+        engine.addSystem(new RenderSystem(batch, viewport, camera));
     }
 
     @Override
     public void show() {
-        assetService.load(MapAsset.Main);
-        engine.getSystem(RenderSystem.class).setMap(assetService.get(MapAsset.Main));
+        Consumer<TiledMap> renderConsumer = engine.getSystem(RenderSystem.class)::setMap;
+        tiledService.setMapChangeConsumer(renderConsumer);
+
+        TiledMap tiledMap = tiledService.loadMap(MapAsset.Main);
+        tiledService.setMap(tiledMap);
     }
 
     @Override

@@ -12,8 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import de.nicolas.GDXGame;
-import de.nicolas.component.Graphic;
-import de.nicolas.component.Transform;
+
 
 import java.util.Comparator;
 
@@ -24,13 +23,14 @@ public class RenderSystem extends SortedIteratingSystem implements Disposable {
     private final Viewport viewport;
     private final OrthographicCamera camera;
 
-    public RenderSystem(Batch batch, Viewport viewport) {
+    public RenderSystem(Batch batch, Viewport viewport, OrthographicCamera camera) {
         super(
-            Family.all(Transform.class, Graphic.class).get(),
-            Comparator.comparing(Transform.MAPPER::get)
+            Family.all(TransformComponent.class, GraphicComponent.class).get(),
+            Comparator.comparing(TransformComponent.MAPPER::get)
         );
         this.batch = batch;
         this.viewport = viewport;
+        this.camera = camera;
         camera = (OrthographicCamera) viewport.getCamera();
         mapRenderer = new OrthogonalTiledMapRenderer(null, GDXGame.UNIT_SCALE, batch);
     }
@@ -49,8 +49,8 @@ public class RenderSystem extends SortedIteratingSystem implements Disposable {
 
     @Override
     protected void processEntity(Entity entity, float v) {
-        Transform transform = Transform.MAPPER.get(entity);
-        Graphic graphic = Graphic.MAPPER.get(entity);
+        TransformComponent transform = TransformComponent.MAPPER.get(entity);
+        GraphicComponent graphic = GraphicComponent.MAPPER.get(entity);
         if (graphic.getRegion() == null){
             return;
         }

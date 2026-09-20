@@ -1,17 +1,17 @@
-package de.nicolas.component;
+package de.nicolas.system;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class Graphic implements Component {
-    public static final ComponentMapper<Graphic> MAPPER = ComponentMapper.getFor(Graphic.class);
+public class GraphicComponent implements Component {
+    public static final ComponentMapper<GraphicComponent> MAPPER = ComponentMapper.getFor(GraphicComponent.class);
 
     private TextureRegion region;
     private final Color color;
 
-    public Graphic(Color color, TextureRegion region) {
+    public GraphicComponent(Color color, TextureRegion region) {
         this.color = color;
         this.region = region;
     }

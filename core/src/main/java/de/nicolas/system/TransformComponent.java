@@ -1,11 +1,11 @@
-package de.nicolas.component;
+package de.nicolas.system;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.gdx.math.Vector2;
 
-public class Transform implements Component, Comparable<Transform> {
-    public static final ComponentMapper<Transform> MAPPER = ComponentMapper.getFor(Transform.class);
+public class TransformComponent implements Component, Comparable<TransformComponent> {
+    public static final ComponentMapper<TransformComponent> MAPPER = ComponentMapper.getFor(TransformComponent.class);
 
     private final Vector2 position;
     private final int z;
@@ -13,7 +13,7 @@ public class Transform implements Component, Comparable<Transform> {
     private final Vector2 scaling;
     private float rotationDeg;
 
-    public Transform(
+    public TransformComponent(
         Vector2 position,
         int z,
         Vector2 size,
@@ -28,11 +28,11 @@ public class Transform implements Component, Comparable<Transform> {
     }
 
     @Override
-    public int compareTo(Transform other) {
-        if (this.z == other.z){
+    public int compareTo(TransformComponent other) {
+        if (this.z!= other.z){
             return Float.compare(this.z, other.z);
         }
-        if (this.position.y == other.position.y){
+        if (this.position.y != other.position.y){
             return Float.compare(this.position.y, other.position.y);
         }
         return Float.compare(this.position.x, this.position.x);
