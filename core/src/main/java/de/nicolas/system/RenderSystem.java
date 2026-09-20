@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import de.nicolas.GDXGame;
-
+import de.nicolas.component.GraphicComponent;
 
 import java.util.Comparator;
 
@@ -71,6 +71,7 @@ public class RenderSystem extends SortedIteratingSystem implements Disposable {
     }
 
     public void setMap(TiledMap tiledMap){
+
         mapRenderer.setMap(tiledMap);
     }
 

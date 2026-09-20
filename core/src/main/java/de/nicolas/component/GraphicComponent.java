@@ -1,4 +1,4 @@
-package de.nicolas.system;
+package de.nicolas.component;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.ComponentMapper;
