@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import de.nicolas.asset.AssetService;
 import de.nicolas.asset.MapAsset;
 import de.nicolas.system.RenderSystem;
+import de.nicolas.tiled.TiledAshleyConfigurator;
 import de.nicolas.tiled.TiledService;
 
 import java.util.function.Consumer;
@@ -25,6 +26,7 @@ public class GameScreen extends ScreenAdapter {
     private final OrthographicCamera camera;
     private final Engine engine;
     private final TiledService tiledService;
+    private final TiledAshleyConfigurator tiledAshleyConfigurator;
 
     public GameScreen(GDXGame game){
         this.game = game;
@@ -34,6 +36,7 @@ public class GameScreen extends ScreenAdapter {
         camera = game.getCamera();
         tiledService = new TiledService(assetService);
         engine = new Engine();
+        tiledAshleyConfigurator = new TiledAshleyConfigurator(engine, assetService);
 
         engine.addSystem(new RenderSystem(batch, viewport, camera));
     }
@@ -42,6 +45,7 @@ public class GameScreen extends ScreenAdapter {
     public void show() {
         Consumer<TiledMap> renderConsumer = engine.getSystem(RenderSystem.class)::setMap;
         tiledService.setMapChangeConsumer(renderConsumer);
+        tiledService.setLoadObjectConsumer(tiledAshleyConfigurator::onLoadObjects);
 
         TiledMap tiledMap = tiledService.loadMap(MapAsset.Main);
         tiledService.setMap(tiledMap);

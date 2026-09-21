@@ -1,4 +1,4 @@
-package de.nicolas.system;
+package de.nicolas.component;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.ashley.core.ComponentMapper;
@@ -29,13 +29,13 @@ public class TransformComponent implements Component, Comparable<TransformCompon
 
     @Override
     public int compareTo(TransformComponent other) {
-        if (this.z!= other.z){
+        if (this.z != other.z){
             return Float.compare(this.z, other.z);
         }
         if (this.position.y != other.position.y){
             return Float.compare(this.position.y, other.position.y);
         }
-        return Float.compare(this.position.x, this.position.x);
+        return Float.compare(this.position.x, other.position.x);
     }
 
     public Vector2 getPosition() {

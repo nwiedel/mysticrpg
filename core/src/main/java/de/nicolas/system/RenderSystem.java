@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import de.nicolas.GDXGame;
 import de.nicolas.component.GraphicComponent;
+import de.nicolas.component.TransformComponent;
 
 import java.util.Comparator;
 
@@ -44,7 +45,10 @@ public class RenderSystem extends SortedIteratingSystem implements Disposable {
         mapRenderer.render();
 
         forceSort();
+
+        batch.begin();
         super.update(deltaTime);
+        batch.end();
     }
 
     @Override

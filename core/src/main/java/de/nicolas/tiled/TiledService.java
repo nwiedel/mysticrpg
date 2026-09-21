@@ -45,7 +45,7 @@ public class TiledService {
 
     private void loadMapObjects(TiledMap tiledMap){
         for (MapLayer layer : tiledMap.getLayers()){
-            if ("object".equals(layer.getName())){
+            if ("objects".equals(layer.getName())){
                 loadObjectLayer(layer);
             }
         }
