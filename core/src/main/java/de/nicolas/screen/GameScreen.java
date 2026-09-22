@@ -1,4 +1,4 @@
-package de.nicolas;
+package de.nicolas.screen;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.EntitySystem;
@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import de.nicolas.GDXGame;
 import de.nicolas.asset.AssetService;
 import de.nicolas.asset.MapAsset;
 import de.nicolas.system.RenderSystem;

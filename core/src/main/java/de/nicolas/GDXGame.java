@@ -15,6 +15,8 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import de.nicolas.asset.AssetService;
+import de.nicolas.screen.GameScreen;
+import de.nicolas.screen.LoadingScreen;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -58,8 +60,8 @@ public class GDXGame extends Game {
         glProfiler.enable();
         fpsLogger = new FPSLogger();
 
-        addScreen(new GameScreen(this));
-        setScreen(GameScreen.class);
+        addScreen(new LoadingScreen(this, assetService));
+        setScreen(LoadingScreen.class);
     }
 
     @Override
@@ -68,12 +70,16 @@ public class GDXGame extends Game {
         super.resize(width, height);
     }
 
-    /** Methode, mit der man Screens zur Map hinzufügen kann */
+    /** Methode, mit der man Screens zur HashMap hinzufügen kann */
     public void addScreen(Screen screen){
         if (screenCache.containsValue(screen)){
             return;
         }
         screenCache.put(screen.getClass(), screen);
+    }
+
+    public void removeScreen(Screen screen){
+        screenCache.remove(screen.getClass());
     }
 
     /** abgewandelte setScreen-Methode die sich den entsprechenden Screen aus der Map holt */
