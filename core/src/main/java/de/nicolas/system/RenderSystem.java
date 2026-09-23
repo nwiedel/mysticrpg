@@ -6,6 +6,7 @@ import com.badlogic.ashley.systems.SortedIteratingSystem;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -15,7 +16,7 @@ import de.nicolas.GDXGame;
 import de.nicolas.component.GraphicComponent;
 import de.nicolas.component.TransformComponent;
 
-import java.util.Comparator;
+import java.util.*;
 
 public class RenderSystem extends SortedIteratingSystem implements Disposable {
 
@@ -23,6 +24,9 @@ public class RenderSystem extends SortedIteratingSystem implements Disposable {
     private final Batch batch;
     private final Viewport viewport;
     private final OrthographicCamera camera;
+
+    private final List<MapLayer> fgrLayer;
+    private final List<MapLayer> bgrLayer;
 
     public RenderSystem(Batch batch, Viewport viewport, OrthographicCamera camera) {
         super(
@@ -34,6 +38,8 @@ public class RenderSystem extends SortedIteratingSystem implements Disposable {
         this.camera = camera;
         camera = (OrthographicCamera) viewport.getCamera();
         mapRenderer = new OrthogonalTiledMapRenderer(null, GDXGame.UNIT_SCALE, batch);
+        fgrLayer = new ArrayList<>();
+        bgrLayer = new ArrayList<>();
     }
 
     @Override
