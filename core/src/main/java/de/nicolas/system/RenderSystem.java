@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -25,8 +26,8 @@ public class RenderSystem extends SortedIteratingSystem implements Disposable {
     private final Viewport viewport;
     private final OrthographicCamera camera;
 
-    private final List<MapLayer> fgrLayer;
-    private final List<MapLayer> bgrLayer;
+    private final List<MapLayer> fgrLayers;
+    private final List<MapLayer> bgrLayers;
 
     public RenderSystem(Batch batch, Viewport viewport, OrthographicCamera camera) {
         super(
@@ -38,22 +39,26 @@ public class RenderSystem extends SortedIteratingSystem implements Disposable {
         this.camera = camera;
         camera = (OrthographicCamera) viewport.getCamera();
         mapRenderer = new OrthogonalTiledMapRenderer(null, GDXGame.UNIT_SCALE, batch);
-        fgrLayer = new ArrayList<>();
-        bgrLayer = new ArrayList<>();
+        fgrLayers = new ArrayList<>();
+        bgrLayers = new ArrayList<>();
     }
 
     @Override
     public void update(float deltaTime) {
-
+        AnimatedTiledMapTile.updateAnimationBaseTime();
         viewport.apply();
-        batch.setColor(Color.WHITE);
-        mapRenderer.setView(camera);
-        mapRenderer.render();
-
-        forceSort();
 
         batch.begin();
+        batch.setColor(Color.WHITE);
+        mapRenderer.setView(camera);
+        bgrLayers.forEach(mapRenderer::renderMapLayer);
+
+        forceSort();
         super.update(deltaTime);
+
+        batch.setColor(Color.WHITE);
+        fgrLayers.forEach(mapRenderer::renderMapLayer);
+
         batch.end();
     }
 
@@ -81,8 +86,21 @@ public class RenderSystem extends SortedIteratingSystem implements Disposable {
     }
 
     public void setMap(TiledMap tiledMap){
-
         mapRenderer.setMap(tiledMap);
+
+        fgrLayers.clear();
+        bgrLayers.clear();
+        List<MapLayer> currentLayers = bgrLayers;
+        for (MapLayer layer : tiledMap.getLayers()){
+            if ("objects".equals(layer.getName())){
+                currentLayers = fgrLayers;
+                continue;
+            }
+            if (layer.getClass().equals(MapLayer.class)){
+                continue;
+            }
+            currentLayers.add(layer);
+        }
     }
 
     @Override
