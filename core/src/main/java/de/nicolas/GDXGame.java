@@ -1,9 +1,6 @@
 package de.nicolas;
 
-import com.badlogic.gdx.Application;
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -42,20 +39,22 @@ public class GDXGame extends Game {
     private GLProfiler glProfiler;
     private FPSLogger fpsLogger;
 
+    /** Input Steuerung */
+    private InputMultiplexer inputMultiplexer;
+
     /** Liste, die die im Spiel existierenden Screen beinhaltet */
     private final Map<Class<? extends Screen>, Screen> screenCache = new HashMap<>();
 
     @Override
     public void create() {
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
+        inputMultiplexer = new InputMultiplexer();
+        Gdx.input.setInputProcessor(inputMultiplexer);
 
         batch = new SpriteBatch();
-
         camera = new OrthographicCamera();
         viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
-
         assetService = new AssetService(new InternalFileHandleResolver());
-
         glProfiler = new GLProfiler(Gdx.graphics);
         glProfiler.enable();
         fpsLogger = new FPSLogger();

@@ -21,25 +21,17 @@ public class GameScreen extends ScreenAdapter {
 
     private final GDXGame game;
 
-    private final AssetService assetService;
-    private final Batch batch;
-    private final Viewport viewport;
-    private final OrthographicCamera camera;
     private final Engine engine;
     private final TiledService tiledService;
     private final TiledAshleyConfigurator tiledAshleyConfigurator;
 
     public GameScreen(GDXGame game){
         this.game = game;
-        batch = game.getBatch();
-        assetService = game.getAssetService();
-        viewport = game.getViewport();
-        camera = game.getCamera();
-        tiledService = new TiledService(assetService);
+        tiledService = new TiledService(game.getAssetService());
         engine = new Engine();
-        tiledAshleyConfigurator = new TiledAshleyConfigurator(engine, assetService);
+        tiledAshleyConfigurator = new TiledAshleyConfigurator(engine, game.getAssetService());
 
-        engine.addSystem(new RenderSystem(batch, viewport, camera));
+        engine.addSystem(new RenderSystem(game.getBatch(), game.getViewport(), game.getCamera()));
     }
 
     @Override
