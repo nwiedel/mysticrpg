@@ -11,6 +11,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import de.nicolas.GDXGame;
 import de.nicolas.asset.AssetService;
 import de.nicolas.asset.MapAsset;
+import de.nicolas.input.GameControllerState;
+import de.nicolas.input.KeyboardController;
 import de.nicolas.system.RenderSystem;
 import de.nicolas.tiled.TiledAshleyConfigurator;
 import de.nicolas.tiled.TiledService;
@@ -24,18 +26,23 @@ public class GameScreen extends ScreenAdapter {
     private final Engine engine;
     private final TiledService tiledService;
     private final TiledAshleyConfigurator tiledAshleyConfigurator;
+    private final KeyboardController keyboardController;
 
     public GameScreen(GDXGame game){
         this.game = game;
         tiledService = new TiledService(game.getAssetService());
         engine = new Engine();
         tiledAshleyConfigurator = new TiledAshleyConfigurator(engine, game.getAssetService());
+        keyboardController = new KeyboardController(GameControllerState.class, engine);
 
         engine.addSystem(new RenderSystem(game.getBatch(), game.getViewport(), game.getCamera()));
     }
 
     @Override
     public void show() {
+        game.setInputProcessors(keyboardController);
+        keyboardController.setActiveState(GameControllerState.class);
+
         Consumer<TiledMap> renderConsumer = engine.getSystem(RenderSystem.class)::setMap;
         tiledService.setMapChangeConsumer(renderConsumer);
         tiledService.setLoadObjectConsumer(tiledAshleyConfigurator::onLoadObjects);

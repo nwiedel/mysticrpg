@@ -12,7 +12,6 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import de.nicolas.asset.AssetService;
-import de.nicolas.screen.GameScreen;
 import de.nicolas.screen.LoadingScreen;
 
 import java.util.HashMap;
@@ -128,5 +127,16 @@ public class GDXGame extends Game {
 
     public OrthographicCamera getCamera() {
         return camera;
+    }
+
+    public void setInputProcessors(InputProcessor... processors){
+        inputMultiplexer.clear();
+        if (processors == null){
+            return;
+        }
+
+        for (InputProcessor processor : processors){
+            inputMultiplexer.addProcessor(processor);
+        }
     }
 }
