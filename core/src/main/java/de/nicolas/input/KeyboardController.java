@@ -57,7 +57,7 @@ public class KeyboardController extends InputAdapter {
         }
 
         commandState[command.ordinal()] = true;
-        activeState.keyDown(command);
+        activeState.keyUp(command);
         return true;
     }
 
@@ -65,14 +65,15 @@ public class KeyboardController extends InputAdapter {
     public boolean keyDown(int keycode) {
         Command command = KEY_MAPPING.get(keycode);
         if (command == null){
-            return false;
+            return false
+                
         }
         if (!commandState[command.ordinal()]){
             return false;
         }
 
         commandState[command.ordinal()] = false;
-        activeState.keyUp(command);
+        activeState.keyDown(command);
         return true;
     }
 }

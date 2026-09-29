@@ -13,6 +13,8 @@ import de.nicolas.asset.AssetService;
 import de.nicolas.asset.MapAsset;
 import de.nicolas.input.GameControllerState;
 import de.nicolas.input.KeyboardController;
+import de.nicolas.system.ControllerSystem;
+import de.nicolas.system.MoveSystem;
 import de.nicolas.system.RenderSystem;
 import de.nicolas.tiled.TiledAshleyConfigurator;
 import de.nicolas.tiled.TiledService;
@@ -35,6 +37,8 @@ public class GameScreen extends ScreenAdapter {
         tiledAshleyConfigurator = new TiledAshleyConfigurator(engine, game.getAssetService());
         keyboardController = new KeyboardController(GameControllerState.class, engine);
 
+        engine.addSystem(new ControllerSystem());
+        engine.addSystem(new MoveSystem());
         engine.addSystem(new RenderSystem(game.getBatch(), game.getViewport(), game.getCamera()));
     }
 

@@ -15,7 +15,9 @@ import com.badlogic.gdx.math.Vector2;
 import de.nicolas.GDXGame;
 import de.nicolas.asset.AssetService;
 import de.nicolas.asset.AtlasAsset;
+import de.nicolas.component.ControllerComponent;
 import de.nicolas.component.GraphicComponent;
+import de.nicolas.component.MoveComponent;
 import de.nicolas.component.TransformComponent;
 
 public class TiledAshleyConfigurator {
@@ -42,7 +44,27 @@ public class TiledAshleyConfigurator {
             entity
         );
 
+        adEntityController(tileMapObject, entity);
+        addEntityMove(tile, entity);
+
         engine.addEntity(entity);
+    }
+
+    private void addEntityMove(TiledMapTile tile, Entity entity) {
+        Float speed = tile.getProperties().get("speed", 0f, Float.class);
+        if (speed == 0f){
+            return;
+        }
+        entity.add(new MoveComponent(speed));
+    }
+
+    private void adEntityController(TiledMapTileMapObject tileMapObject, Entity entity) {
+        boolean controller = tileMapObject.getProperties().get("controller", false, Boolean.class);
+        if (!controller){
+            return;
+        }
+
+        entity.add(new ControllerComponent());
     }
 
     private void addEntityTransform(
