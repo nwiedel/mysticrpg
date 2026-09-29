@@ -50,30 +50,29 @@ public class KeyboardController extends InputAdapter {
     }
 
     @Override
-    public boolean keyUp(int keycode) {
+    public boolean keyDown(int keycode) {
         Command command = KEY_MAPPING.get(keycode);
         if (command == null){
             return false;
         }
 
         commandState[command.ordinal()] = true;
-        activeState.keyUp(command);
+        activeState.keyDown(command);
         return true;
     }
 
     @Override
-    public boolean keyDown(int keycode) {
+    public boolean keyUp(int keycode) {
         Command command = KEY_MAPPING.get(keycode);
         if (command == null){
-            return false
-                
+            return false;
         }
         if (!commandState[command.ordinal()]){
             return false;
         }
 
         commandState[command.ordinal()] = false;
-        activeState.keyDown(command);
+        activeState.keyUp(command);
         return true;
     }
 }

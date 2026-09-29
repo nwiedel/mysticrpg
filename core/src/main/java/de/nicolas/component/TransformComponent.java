@@ -33,7 +33,7 @@ public class TransformComponent implements Component, Comparable<TransformCompon
             return Float.compare(this.z, other.z);
         }
         if (this.position.y != other.position.y){
-            return Float.compare(this.position.y, other.position.y);
+            return Float.compare(other.position.y, this.position.y);
         }
         return Float.compare(this.position.x, other.position.x);
     }
