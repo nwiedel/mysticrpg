@@ -13,6 +13,7 @@ import de.nicolas.asset.AssetService;
 import de.nicolas.asset.MapAsset;
 import de.nicolas.input.GameControllerState;
 import de.nicolas.input.KeyboardController;
+import de.nicolas.system.AnimationSystem;
 import de.nicolas.system.ControllerSystem;
 import de.nicolas.system.MoveSystem;
 import de.nicolas.system.RenderSystem;
@@ -39,6 +40,7 @@ public class GameScreen extends ScreenAdapter {
 
         engine.addSystem(new ControllerSystem());
         engine.addSystem(new MoveSystem());
+        engine.addSystem(new AnimationSystem(game.getAssetService()));
         engine.addSystem(new RenderSystem(game.getBatch(), game.getViewport(), game.getCamera()));
     }
 

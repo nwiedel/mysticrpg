@@ -15,10 +15,9 @@ import com.badlogic.gdx.math.Vector2;
 import de.nicolas.GDXGame;
 import de.nicolas.asset.AssetService;
 import de.nicolas.asset.AtlasAsset;
-import de.nicolas.component.ControllerComponent;
-import de.nicolas.component.GraphicComponent;
-import de.nicolas.component.MoveComponent;
-import de.nicolas.component.TransformComponent;
+import de.nicolas.component.*;
+
+import static de.nicolas.component.FacingComponent.*;
 
 public class TiledAshleyConfigurator {
 
@@ -46,8 +45,14 @@ public class TiledAshleyConfigurator {
 
         adEntityController(tileMapObject, entity);
         addEntityMove(tile, entity);
+        addEntityAnimation(tile, entity);
+        entity.add(new FacingComponent(FacingDirection.DOWN));
 
         engine.addEntity(entity);
+    }
+
+    private void addEntityAnimation(TiledMapTile tile, Entity entity) {
+        
     }
 
     private void addEntityMove(TiledMapTile tile, Entity entity) {
