@@ -25,13 +25,12 @@ public class AnimationComponent implements Component {
     public AnimationComponent(AtlasAsset atlasAsset,
                               String atlasKey,
                               AnimationType type,
-                              FacingDirection direction,
                               PlayMode playMode,
                               float speed) {
         this.atlasAsset = atlasAsset;
         this.atlasKey = atlasKey;
         this.type = type;
-        this.direction = direction;
+        this.direction = null;
         this.playMode = playMode;
         this.speed = speed;
         this.stateTime = 0f;

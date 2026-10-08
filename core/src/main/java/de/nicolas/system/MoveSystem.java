@@ -18,7 +18,7 @@ public class MoveSystem extends IteratingSystem {
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
         MoveComponent moveComponent = MoveComponent.MAPPER.get(entity);
-        if (moveComponent.isRotated() || moveComponent.getDirection().isZero()){
+        if (moveComponent.isRooted() || moveComponent.getDirection().isZero()){
             return;
         }
 

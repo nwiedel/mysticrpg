@@ -47,7 +47,7 @@ public class AnimationSystem extends IteratingSystem {
 
         Animation<TextureRegion> animation = animationComponent.getAnimation();
         animation.setPlayMode(animationComponent.getPlayMode());
-        TextureRegion keyFrame = animation.getKeyFrame(deltaTime);
+        TextureRegion keyFrame = animation.getKeyFrame(stateTime);
         GraphicComponent.MAPPER.get(entity).setRegion(keyFrame);
     }
 

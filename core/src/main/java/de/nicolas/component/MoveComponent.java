@@ -10,7 +10,7 @@ public class MoveComponent implements Component {
 
     private float maxSpeed;
     private final Vector2 direction;
-    private boolean isRotated;
+    private boolean isRooted;
 
     public MoveComponent(float maxSpeed){
         this.maxSpeed = maxSpeed;
@@ -25,11 +25,11 @@ public class MoveComponent implements Component {
         return direction;
     }
 
-    public void setRotated(boolean rotated) {
-        isRotated = rotated;
+    public void setRooted(boolean rotated) {
+        isRooted = rotated;
     }
 
-    public boolean isRotated() {
-        return isRotated;
+    public boolean isRooted() {
+        return isRooted;
     }
 }
