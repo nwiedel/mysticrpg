@@ -6,6 +6,8 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import de.nicolas.GDXGame;
@@ -28,12 +30,16 @@ public class GameScreen extends ScreenAdapter {
     private final TiledAshleyConfigurator tiledAshleyConfigurator;
     private final KeyboardController keyboardController;
 
+    private final World world;
+
     public GameScreen(GDXGame game){
         this.game = game;
         tiledService = new TiledService(game.getAssetService());
         engine = new Engine();
         tiledAshleyConfigurator = new TiledAshleyConfigurator(engine, game.getAssetService());
         keyboardController = new KeyboardController(GameControllerState.class, engine);
+        world = new World(Vector2.Zero, true);
+        world.setAutoClearForces(false);
 
         engine.addSystem(new ControllerSystem());
         engine.addSystem(new MoveSystem());
@@ -76,5 +82,7 @@ public class GameScreen extends ScreenAdapter {
                 disposableSystem.dispose();
             }
         }
+
+        world.dispose();
     }
 }
