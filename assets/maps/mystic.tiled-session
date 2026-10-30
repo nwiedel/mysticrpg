@@ -1,5 +1,5 @@
 {
-    "activeFile": "mainmap.tmx",
+    "activeFile": "",
     "expandedProjectPaths": [
         "."
     ],
@@ -7,10 +7,10 @@
     "fileStates": {
         "mainmap.tmx": {
             "scale": 3,
-            "selectedLayer": 3,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 152.66666666666663,
-                "y": 136.33333333333331
+                "x": 149.99999999999997,
+                "y": 126.66666666666669
             }
         },
         "objects.tsx": {
@@ -31,7 +31,6 @@
     "map.tileWidth": 64,
     "map.width": 30,
     "openFiles": [
-        "mainmap.tmx"
     ],
     "project": "mystic.tiled-project",
     "recentFiles": [
